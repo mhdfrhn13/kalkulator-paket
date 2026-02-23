@@ -3,155 +3,160 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kalkulator Paket Wisata</title>
+    <title>Kalkulator Wisata Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-slate-50 min-h-screen p-4 md:p-8">
-    <div class="max-w-7xl mx-auto">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-slate-800 flex items-center gap-3">
-          <i class="fas fa-calculator text-blue-600"></i> Kalkulator Paket
-          Wisata
+  <body
+    class="bg-[#F8FAFC] min-h-screen font-['Plus_Jakarta_Sans'] text-slate-900"
+  >
+    <div class="max-w-[1400px] mx-auto p-4 md:p-10">
+      <header class="mb-10">
+        <h1 class="text-4xl font-extrabold tracking-tight text-slate-900 mb-2">
+          Trip<span class="text-indigo-600">Calculator</span>.
         </h1>
-      </div>
+        <p class="text-slate-500 font-medium">
+          Buat estimasi paket wisata profesional dalam hitungan detik.
+        </p>
+      </header>
 
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div class="lg:col-span-2 space-y-6">
-          <div
-            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 space-y-6"
-          >
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label class="block text-sm font-bold text-slate-700 mb-2"
-                  >Jumlah Peserta & Durasi</label
-                >
-                <div class="grid grid-cols-3 gap-2">
-                  <input
-                    type="number"
-                    id="participants"
-                    value="0"
-                    placeholder="Pax"
-                    class="input-field"
-                  />
-                  <input
-                    type="number"
-                    id="days"
-                    value="0"
-                    placeholder="Hari"
-                    class="input-field"
-                  />
-                  <input
-                    type="number"
-                    id="nights"
-                    value="0"
-                    placeholder="Malam"
-                    class="input-field"
-                  />
-                </div>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div class="lg:col-span-8 space-y-8">
+          <section class="form-card">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                <i class="fas fa-map-marked-alt text-xl"></i>
               </div>
-              <div>
-                <label class="block text-sm font-bold text-slate-700 mb-2"
-                  >Pengaturan Kendaraan</label
-                >
-                <div class="grid grid-cols-3 gap-2">
-                  <div class="col-span-2">
-                    <select id="vehicle" class="select-field">
-                      <option value="450000" data-cap="6">
-                        Avanza (6 Seat) - Rp 450rb
-                      </option>
-                      <option value="600000" data-cap="7">
-                        Innova (7 Seat) - Rp 600rb
-                      </option>
-                      <option value="900000" data-cap="15">
-                        Hiace (15 Seat) - Rp 900rb
-                      </option>
-                      <option value="1500000" data-cap="25">
-                        Bus Medium (25 Seat) - Rp 1.5jt
-                      </option>
-                      <option value="2500000" data-cap="40">
-                        Bus Besar (40 Seat) - Rp 2.5jt
-                      </option>
-                    </select>
-                  </div>
-                  <div>
+              <h2 class="text-lg font-bold">Detail Perjalanan</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div class="space-y-4">
+                <label class="label-style">Peserta & Durasi</label>
+                <div class="grid grid-cols-3 gap-3">
+                  <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-users"></i></span>
                     <input
                       type="number"
-                      id="vehicle-units"
+                      id="participants"
                       value="0"
-                      min="0"
+                      placeholder="Pax"
+                      class="input-field"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <span class="input-icon"
+                      ><i class="fas fa-calendar-day"></i
+                    ></span>
+                    <input
+                      type="number"
+                      id="days"
+                      value="0"
+                      placeholder="Hari"
+                      class="input-field"
+                    />
+                  </div>
+                  <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-moon"></i></span>
+                    <input
+                      type="number"
+                      id="nights"
+                      value="0"
+                      placeholder="Malam"
                       class="input-field"
                     />
                   </div>
                 </div>
-                <div
-                  class="mt-2 text-[10px] text-blue-600 italic"
-                  id="vehicle-recommendation"
-                ></div>
+              </div>
+
+              <div class="space-y-4">
+                <label class="label-style">Kendaraan</label>
+                <div class="grid grid-cols-4 gap-3">
+                  <select id="vehicle" class="select-field col-span-3">
+                    <option value="450000" data-cap="6">Avanza (6 Seat)</option>
+                    <option value="600000" data-cap="7">Innova (7 Seat)</option>
+                    <option value="900000" data-cap="15">
+                      Hiace (15 Seat)
+                    </option>
+                    <option value="1500000" data-cap="25">
+                      Bus Medium (25 Seat)
+                    </option>
+                    <option value="2500000" data-cap="40">
+                      Bus Besar (40 Seat)
+                    </option>
+                  </select>
+                  <input
+                    type="number"
+                    id="vehicle-units"
+                    value="0"
+                    min="0"
+                    class="input-field"
+                    placeholder="Unit"
+                  />
+                </div>
+                <p class="recommendation-text" id="vehicle-recommendation"></p>
               </div>
             </div>
-          </div>
+          </section>
 
-          <div
-            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200"
-          >
-            <div
-              class="flex flex-col md:flex-row md:items-center justify-between mb-4 gap-4"
-            >
-              <h3 class="font-bold text-slate-800 flex items-center gap-2">
-                <i class="fas fa-bed text-blue-500"></i> Akomodasi (Per Malam)
-              </h3>
+          <section class="form-card">
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
+                  <i class="fas fa-hotel text-xl"></i>
+                </div>
+                <h2 class="text-lg font-bold">Akomodasi & Kamar</h2>
+              </div>
               <div
-                class="flex items-center gap-3 bg-blue-50 p-2 rounded-lg border border-blue-100"
+                class="flex items-center gap-3 bg-slate-50 px-3 py-1.5 rounded-full border border-slate-200"
               >
-                <label class="text-xs font-bold text-blue-700 uppercase"
-                  >Jumlah Kamar:</label
+                <span class="text-xs font-bold text-slate-600"
+                  >JUMLAH KAMAR:</span
                 >
                 <input
                   type="number"
                   id="room-units"
                   value="0"
                   min="0"
-                  class="w-16 p-1 border rounded bg-white text-center font-bold outline-blue-500"
+                  class="w-12 bg-transparent font-bold text-center outline-none"
                 />
               </div>
             </div>
-            <div id="hotel-list-container" class="space-y-3"></div>
-            <p
-              id="room-recommendation"
-              class="mt-3 text-[10px] text-slate-500 italic"
-            ></p>
-          </div>
 
-          <div
-            class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6"
-          >
-            <div>
-              <h3 class="font-bold text-slate-800 mb-4">
-                <i class="fas fa-user-tie text-blue-500 mr-2"></i> Guide & Makan
-              </h3>
-              <div class="space-y-4">
+            <div
+              id="hotel-list-container"
+              class="grid grid-cols-1 md:grid-cols-2 gap-4"
+            ></div>
+            <p class="recommendation-text mt-4" id="room-recommendation"></p>
+          </section>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <section class="form-card">
+              <div class="flex items-center gap-3 mb-6 text-emerald-600">
+                <i class="fas fa-utensils"></i>
+                <h2 class="text-lg font-bold text-slate-800">Guide & Makan</h2>
+              </div>
+              <div class="space-y-5">
                 <div>
-                  <label
-                    class="text-xs text-slate-500 uppercase font-bold text-blue-600"
-                    >Fee Guide (Per Hari)</label
-                  >
+                  <label class="sub-label">Fee Guide (Per Hari)</label>
                   <input
                     type="number"
                     id="guide-fee"
                     value="0"
-                    class="input-field-focus"
+                    class="input-field"
                   />
                 </div>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <label class="text-xs text-slate-500 uppercase font-bold"
-                      >Harga/Makan</label
-                    >
+                    <label class="sub-label">Harga Makan</label>
                     <input
                       type="number"
                       id="meal-price"
@@ -160,9 +165,7 @@
                     />
                   </div>
                   <div>
-                    <label class="text-xs text-slate-500 uppercase font-bold"
-                      >Frekuensi</label
-                    >
+                    <label class="sub-label">Frekuensi</label>
                     <input
                       type="number"
                       id="meal-qty"
@@ -172,58 +175,65 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <h3 class="font-bold text-slate-800 mb-4">
-                <i class="fas fa-ticket-alt text-blue-500 mr-2"></i> Tiket
-                Wisata
-              </h3>
+            </section>
+
+            <section class="form-card">
+              <div class="flex items-center gap-3 mb-6 text-rose-600">
+                <i class="fas fa-ticket-alt"></i>
+                <h2 class="text-lg font-bold text-slate-800">Tiket Wisata</h2>
+              </div>
               <div
                 id="destinations-list"
-                class="custom-scrollbar space-y-2 max-h-60 overflow-y-auto pr-2"
+                class="custom-scrollbar space-y-2 max-h-[180px] overflow-y-auto pr-2"
               ></div>
-            </div>
+            </section>
           </div>
         </div>
 
-        <div class="space-y-6">
-          <div
-            class="bg-slate-800 p-6 rounded-2xl shadow-xl text-white sticky top-8"
-          >
-            <h3
-              class="text-lg font-bold mb-4 border-b border-slate-700 pb-2 text-blue-400"
+        <div class="lg:col-span-4">
+          <div class="sticky top-10 space-y-6">
+            <div
+              class="bg-slate-900 rounded-[2rem] p-8 text-white shadow-2xl shadow-indigo-200"
             >
-              Ringkasan Biaya
-            </h3>
-            <div id="breakdown" class="space-y-3 text-sm"></div>
-
-            <div class="mt-6 pt-4 border-t border-slate-700">
-              <label
-                class="text-xs text-slate-400 uppercase font-bold mb-2 block text-blue-400"
-                >Profit Total (Rupiah)</label
+              <h3
+                class="text-indigo-400 font-bold uppercase tracking-widest text-xs mb-6"
               >
-              <div class="relative">
-                <span class="absolute left-3 top-2 text-slate-400 font-bold"
-                  >Rp</span
+                Ringkasan Estimasi
+              </h3>
+
+              <div id="breakdown" class="space-y-4 mb-8"></div>
+
+              <div class="pt-6 border-t border-slate-700">
+                <label
+                  class="text-xs font-bold text-slate-400 uppercase mb-3 block text-center"
+                  >Profit Target (IDR)</label
                 >
                 <input
                   type="number"
                   id="profit-nominal"
                   value="0"
-                  class="w-full p-2 pl-10 bg-slate-900 border border-slate-700 rounded-lg text-white font-bold outline-none focus:border-blue-500 transition"
+                  class="w-full bg-slate-800 border-0 rounded-xl p-4 text-center text-xl font-bold focus:ring-2 focus:ring-indigo-500 outline-none"
                 />
               </div>
-            </div>
 
-            <div class="mt-6 pt-6 border-t border-slate-700 text-center">
-              <p
-                class="text-slate-400 text-xs uppercase tracking-widest mb-1 font-bold"
+              <div class="mt-10 text-center">
+                <p class="text-slate-400 text-sm mb-1">
+                  Estimasi Harga Jual/Pax
+                </p>
+                <div
+                  class="text-4xl font-black text-indigo-400"
+                  id="price-per-pax"
+                >
+                  Rp 0
+                </div>
+              </div>
+
+              <button
+                onclick="window.print()"
+                class="w-full mt-8 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-indigo-900/20"
               >
-                Harga Jual Per Pax
-              </p>
-              <h2 class="text-4xl font-black text-blue-400" id="price-per-pax">
-                Rp 0
-              </h2>
+                <i class="fas fa-file-pdf mr-2"></i> Simpan Sebagai PDF
+              </button>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+// Data Destinasi (Sesuai source)
 const DESTINATIONS = [
   { id: 1, name: "Lembah Anai", price: 5000 },
   { id: 2, name: "PDIKM", price: 25000 },
@@ -10,132 +11,114 @@ const DESTINATIONS = [
   { id: 9, name: "Benteng", price: 50000 },
 ];
 
-// Helper: Format angka ke Rupiah
 function formatIDR(val) {
   return "Rp " + Math.ceil(val).toLocaleString("id-ID");
 }
 
-// Render daftar input hotel berdasarkan jumlah malam
 function renderHotelInputs() {
   const nights = parseInt(document.getElementById("nights").value) || 0;
   const container = document.getElementById("hotel-list-container");
   const currentValues = Array.from(
     document.querySelectorAll(".hotel-input"),
-  ).map((input) => input.value);
+  ).map((i) => i.value);
 
   container.innerHTML = "";
   for (let i = 1; i <= nights; i++) {
     const val = currentValues[i - 1] || 0;
     container.innerHTML += `
-            <div class="flex items-center gap-4 p-3 bg-slate-50 rounded-xl border border-transparent hover:border-blue-200 transition">
-                <span class="text-xs font-bold text-slate-400 w-16 uppercase">Malam ${i}</span>
-                <input type="text" placeholder="Hotel/Kota" class="flex-1 p-1 bg-transparent border-b border-slate-200 outline-none text-sm" value="Hotel Malam ${i}">
-                <input type="number" class="hotel-input w-28 p-1 border rounded bg-white text-right outline-blue-500" value="${val}">
-            </div>
-        `;
+      <div class="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:border-indigo-200 transition-all">
+        <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg text-[10px] font-bold text-slate-400 shadow-sm">${i}</div>
+        <div class="flex-1">
+          <input type="text" placeholder="Nama Hotel" class="w-full bg-transparent text-xs font-bold outline-none placeholder:text-slate-300" value="Hotel Malam ${i}">
+        </div>
+        <div class="relative">
+          <span class="absolute left-2 top-1.5 text-[10px] text-slate-400 font-bold">Rp</span>
+          <input type="number" class="hotel-input w-28 pl-7 p-1.5 bg-white border border-slate-200 rounded-lg text-right text-xs font-bold outline-indigo-500" value="${val}">
+        </div>
+      </div>`;
   }
   calculate();
 }
 
-// Render daftar destinasi wisata
 function renderDestinations() {
   const destDiv = document.getElementById("destinations-list");
   DESTINATIONS.forEach((d) => {
     destDiv.innerHTML += `
-          <label class="flex justify-between items-center text-sm p-3 bg-slate-50 rounded-xl hover:bg-blue-50 cursor-pointer transition border border-transparent">
-              <div class="flex items-center gap-3">
-                  <input type="checkbox" class="dest-check w-4 h-4 rounded text-blue-600" value="${d.price}">
-                  <span class="font-medium text-slate-700">${d.name}</span>
-              </div>
-              <span class="text-slate-400 text-xs">${formatIDR(d.price)}</span>
-          </label>
-        `;
+      <label class="flex justify-between items-center p-3 bg-white border border-slate-100 rounded-xl hover:bg-indigo-50 hover:border-indigo-100 cursor-pointer transition-all">
+        <div class="flex items-center gap-3">
+          <input type="checkbox" class="dest-check" value="${d.price}">
+          <span class="text-sm font-semibold text-slate-700">${d.name}</span>
+        </div>
+        <span class="text-slate-400 text-xs font-bold">${formatIDR(d.price)}</span>
+      </label>`;
   });
 }
 
-// Fungsi Utama: Kalkulasi Biaya
 function calculate() {
   const pax = parseInt(document.getElementById("participants").value) || 0;
   const days = parseInt(document.getElementById("days").value) || 0;
 
-  // Kendaraan
+  // Transport
   const vSelect = document.getElementById("vehicle");
   const vPrice = parseInt(vSelect.value);
   const vCap = parseInt(vSelect.options[vSelect.selectedIndex].dataset.cap);
   const vUnits = parseInt(document.getElementById("vehicle-units").value) || 0;
   const transportCost = vPrice * days * vUnits;
 
+  // Recommendation logic
   const recVehicles = vCap > 0 ? Math.ceil(pax / vCap) : 0;
   document.getElementById("vehicle-recommendation").innerText =
-    `* Rekomendasi: min. ${recVehicles} unit untuk ${pax} pax.`;
+    `* Rekomendasi min: ${recVehicles} unit`;
 
-  // Kamar
+  // Akomodasi
   const rooms = parseInt(document.getElementById("room-units").value) || 0;
-  const recRooms = Math.ceil(pax / 2);
-  document.getElementById("room-recommendation").innerText =
-    `* Rekomendasi: ${recRooms} kamar (Twin Sharing).`;
-
   let hotelCost = 0;
-  document.querySelectorAll(".hotel-input").forEach((input) => {
-    hotelCost += (parseInt(input.value) || 0) * rooms;
-  });
+  document
+    .querySelectorAll(".hotel-input")
+    .forEach((input) => (hotelCost += (parseInt(input.value) || 0) * rooms));
 
-  // Konsumsi
-  const mPrice = parseInt(document.getElementById("meal-price").value) || 0;
-  const mQty = parseInt(document.getElementById("meal-qty").value) || 0;
-  const mealCost = mPrice * mQty * pax;
+  // Makan & Guide
+  const mealCost =
+    (parseInt(document.getElementById("meal-price").value) || 0) *
+    (parseInt(document.getElementById("meal-qty").value) || 0) *
+    pax;
+  const guideTotal =
+    (parseInt(document.getElementById("guide-fee").value) || 0) * days;
 
-  // Guide
-  const gFeeDaily = parseInt(document.getElementById("guide-fee").value) || 0;
-  const guideTotal = gFeeDaily * days;
-
-  // Tiket Wisata
+  // Tiket
   let destCost = 0;
-  document.querySelectorAll(".dest-check:checked").forEach((cb) => {
-    destCost += parseInt(cb.value) * pax;
-  });
+  document
+    .querySelectorAll(".dest-check:checked")
+    .forEach((cb) => (destCost += parseInt(cb.value) * pax));
 
-  // Margin & Final
-  const profitNominal =
-    parseInt(document.getElementById("profit-nominal").value) || 0;
+  // Totals
+  const profit = parseInt(document.getElementById("profit-nominal").value) || 0;
   const totalModal =
     transportCost + hotelCost + mealCost + destCost + guideTotal;
-  const totalJual = totalModal + profitNominal;
+  const totalJual = totalModal + profit;
   const perPax = pax > 0 ? totalJual / pax : 0;
 
-  // Update UI Breakdown
+  // UI Update
   document.getElementById("breakdown").innerHTML = `
-        <div class="flex justify-between"><span>Transport (${vUnits} unit)</span><span>${formatIDR(transportCost)}</span></div>
-        <div class="flex justify-between"><span>Hotel (${rooms} kmr)</span><span>${formatIDR(hotelCost)}</span></div>
-        <div class="flex justify-between text-blue-300"><span>Guide Fee (${days} hari)</span><span>${formatIDR(guideTotal)}</span></div>
-        <div class="flex justify-between"><span>Konsumsi</span><span>${formatIDR(mealCost)}</span></div>
-        <div class="flex justify-between"><span>Tiket Objek</span><span>${formatIDR(destCost)}</span></div>
-        <div class="flex justify-between font-bold pt-2 border-t border-slate-700 text-white"><span>Total Modal</span><span>${formatIDR(totalModal)}</span></div>
-        <div class="flex justify-between text-xs text-green-400 font-bold uppercase mt-2"><span>Margin Profit</span><span>${formatIDR(profitNominal)}</span></div>
-    `;
+    <div class="flex justify-between text-sm"> <span class="text-slate-400">Transportasi</span> <span>${formatIDR(transportCost)}</span> </div>
+    <div class="flex justify-between text-sm"> <span class="text-slate-400">Akomodasi</span> <span>${formatIDR(hotelCost)}</span> </div>
+    <div class="flex justify-between text-sm"> <span class="text-slate-400">Guide Service</span> <span>${formatIDR(guideTotal)}</span> </div>
+    <div class="flex justify-between text-sm"> <span class="text-slate-400">Konsumsi</span> <span>${formatIDR(mealCost)}</span> </div>
+    <div class="flex justify-between text-sm"> <span class="text-slate-400">Tiket Wisata</span> <span>${formatIDR(destCost)}</span> </div>
+    <div class="flex justify-between font-bold pt-4 border-t border-slate-700 text-lg"> <span>Total Modal</span> <span>${formatIDR(totalModal)}</span> </div>`;
+
   document.getElementById("price-per-pax").innerText = formatIDR(perPax);
 }
 
-// Event Listeners
+// Initializing
 document.addEventListener("DOMContentLoaded", () => {
   renderDestinations();
   renderHotelInputs();
-
-  // Listen to any input change
   document.body.addEventListener("input", (e) => {
-    if (e.target.matches("input, select")) {
-      if (e.target.id === "nights") {
-        renderHotelInputs();
-      } else {
-        calculate();
-      }
-    }
+    if (e.target.id === "nights") renderHotelInputs();
+    calculate();
   });
-
-  // Khusus untuk checkbox destinasi
   document.body.addEventListener("change", (e) => {
-    if (e.target.classList.contains("dest-check")) {
-      calculate();
-    }
+    if (e.target.type === "checkbox") calculate();
   });
 });
