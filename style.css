@@ -1,0 +1,38 @@
+/* Custom Styles */
+
+/* Utility untuk input agar kode HTML tidak terlalu panjang */
+.input-field {
+  @apply p-2 border rounded-lg w-full outline-blue-500;
+}
+
+.input-field-focus {
+  @apply w-full p-2 border rounded-lg outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.select-field {
+  @apply w-full p-2 border rounded-lg outline-blue-500 text-sm h-[42px];
+}
+
+/* Custom Scrollbar untuk daftar destinasi */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Transisi halus */
+.transition-all {
+  transition: all 0.3s ease;
+}
